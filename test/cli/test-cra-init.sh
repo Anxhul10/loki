@@ -25,7 +25,7 @@ rm -rf create-react-app || true
 npx create-react-app generated/create-react-app
 cd create-react-app
 # npx -p @storybook/cli sb init
-npx storybook@latest init
+npx storybook@latest init --yes
 yarn add loki
 ../../../../node_modules/.bin/loki init
 
