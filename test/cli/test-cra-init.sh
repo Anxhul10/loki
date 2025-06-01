@@ -22,7 +22,7 @@ mkdir -p generated
 cd generated
 rm -rf create-react-app || true
 # yarn create react-app create-react-app
-npx create-react-app create-react-app
+npx create-react-app generated/create-react-app
 cd create-react-app
 # npx -p @storybook/cli sb init
 npx storybook@latest init
