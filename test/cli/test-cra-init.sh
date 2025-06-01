@@ -21,9 +21,11 @@ pushd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null
 mkdir -p generated
 cd generated
 rm -rf create-react-app || true
-yarn create react-app create-react-app
+# yarn create react-app create-react-app
+npx create-react-app create-react-app
 cd create-react-app
-npx -p @storybook/cli sb init
+# npx -p @storybook/cli sb init
+npx storybook@latest init
 yarn add loki
 ../../../../node_modules/.bin/loki init
 
