@@ -109,4 +109,3 @@ cd test/cli && yarn test
 ## License
 
 [MIT License](http://opensource.org/licenses/mit-license.html). © Joel Arvidsson 2017-present
-update
