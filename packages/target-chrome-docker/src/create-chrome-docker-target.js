@@ -90,8 +90,7 @@ function createChromeDockerTarget({
 
     debuggerPort = getRandomPort();
     if (isLocalFile) {
-      staticServer = createStaticServer(staticServerPath);
-      staticServer.listen(staticServerPort);
+      staticServer = createStaticServer(staticServerPath).listen(staticServerPort);
       debug(`Starting static file server at ${dockerUrl}`);
     }
 
