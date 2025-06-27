@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-const http = require('http');
+const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const mime = require('mime-types');
@@ -35,21 +35,13 @@ async function sendFile(res, filePath) {
   }
 }
 
-const createStaticServer = (dir) =>
-  http.createServer(async (req, res) => {
-    const url = new URL(`http://localhost${req.url}`);
-    const staticFilePath = path.normalize(
-      path.join(dir, url.pathname === '/' ? 'index.html' : url.pathname)
-    );
-    if (staticFilePath.startsWith(dir)) {
-      try {
-        return await sendFile(res, staticFilePath);
-      } catch (err) {
-        if (err.code !== 'ENOENT' && err.code !== 'EISDIR') {
-          throw err;
-        }
-      }
-    }
-  });
+const createStaticServer = (dir) => {
+  const setHeaders = (res) => {
+    res.setHeader('Cache-Control', 'no-store, must-revalidate');
+  };
+  const app = express();
+  app.use(express.static(dir, { setHeaders }));
+  return app;
+};
 
 module.exports = { createStaticServer };
