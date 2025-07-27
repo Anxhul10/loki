@@ -169,6 +169,7 @@ function createChromeTarget(
         .concat(args.map(JSON.stringify))
         .join(',');
       const expression = `(() => Promise.resolve((${functionToExecute})(${stringifiedArgs})).then(JSON.stringify))()`;
+      console.log('window:'+functionToExecute);
       const { result } = await Runtime.evaluate({
         expression,
         awaitPromise: true,
@@ -375,7 +376,10 @@ function createChromeTarget(
       throw error;
     }
   }
-
+  function sleep(ms) {
+    console.log("sleeping for" + ms);
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   async function captureScreenshotForStory(
     storyId,
     options,
@@ -406,6 +410,8 @@ function createChromeTarget(
     let screenshot;
     try {
       await withTimeout(options.chromeLoadTimeout)(tab.loadUrl(url, selector));
+      // await sleep(configuration.delay);
+      await sleep(3000);
       screenshot = await tab.captureScreenshot(selector);
     } catch (err) {
       if (err instanceof TimeoutError) {
